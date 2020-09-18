@@ -26,11 +26,11 @@ def login():
 			if not data or not data.get('username') or not data.get('password'):
 				return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
-			user = Users.query.filter_by(username=data.get('username')).first()
+			user = Users.query.filter_by(username=str(data.get('username'))).first()
 
 			if user is not None:
 
-				if check_password_hash(user.password, data.get('password')):
+				if check_password_hash(user.password, str(data.get('password'))):
 					token = jwt.encode({'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
 					token_id = token.decode('UTF-8')
@@ -38,7 +38,7 @@ def login():
 					hostname = socket.gethostname()
 					ip_address = socket.gethostbyname(hostname)
 
-					token_add = Token(token_id, user.id, 1, ip_address, hostname)
+					token_add = Token(str(token_id), int(user.id), 1, ip_address, hostname)
 
 					db.session.add(token_add)
 					db.session.commit()

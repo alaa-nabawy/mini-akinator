@@ -65,7 +65,7 @@ class Guess(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	guess = db.Column(db.String(128))
 	questions = db.Column(db.String(128))
-	picture = db.Column(db.Text(256), nullable=False, default='default_profile.png')
+	picture = db.Column(db.Text)
 
 	def __init(self, guess, questions, picture):
 		self.guess = guess
