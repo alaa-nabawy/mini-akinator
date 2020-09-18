@@ -18,7 +18,7 @@ Migrate(app, db)
 
 # Global
 request_source = 'http://createinc.000webhostapp.com/'
-backend_source = 'http://127.0.0.1:5000/'
+backend_source = 'https://mini-akinator.herokuapp.com/'
 
 # Blueprints
 from factory.users.views import users
