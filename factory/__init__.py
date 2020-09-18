@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'akinator-mini.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://efzxgcjjwtasbe:0eda20e400c55ab4a96ce12acdf5c884ae7bebefb4d96afc709dbf5fa365b561@ec2-54-160-202-3.compute-1.amazonaws.com:5432/d980j4rblo8327'
 app.config['SECRET_KEY'] = ''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
