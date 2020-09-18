@@ -12,7 +12,7 @@ class Users(db.Model):
 	__tablename__  = 'users'
 
 	id = db.Column(db.Integer, primary_key=True)
-	public_id = db.Column(db.Integer, nullable=False, default=uuid.uuid4())
+	public_id = db.Column(db.Integer, nullable=False, default=int(uuid.uuid4()))
 	username = db.Column(db.String(64), unique=True, index=True)
 	password = db.Column(db.Text)
 	tokener = db.relationship('Token', backref='token_owner', lazy=True)
