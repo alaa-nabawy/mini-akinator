@@ -54,11 +54,13 @@ def guess():
 
 			data_question = []
 			exclude = []
+			all_qustions = []
 			answers_list = []
 
 			for question in data:
 
 				answers_list.append(question.get('answer'))
+				all_qustions.append(question.get('question_id'))
 
 				if question.get('answer') == '1':
 
@@ -67,8 +69,6 @@ def guess():
 				else:
 
 					exclude.append(question.get('question_id'))
-
-			all_qustions = data_question + exclude
 
 			guesses = Guess.query
 
@@ -247,49 +247,46 @@ def get_sessions():
 
 	if request.method == 'POST':
 
-		if f"{request_source}sessions" in request.headers.get("Referer"):
 
-			sessions = Sessions.query
+		sessions = Sessions.query
 
-			sessions_list = []
+		sessions_list = []
 
-			if sessions is not None:
+		if sessions is not None:
 
-				for session in sessions:
+			for session in sessions:
 
-					list_of_questions = get_list(session.questions)
+				list_of_questions = get_list(session.questions)
 
-					questions_list = []
+				questions_list = []
 
-					for question in list_of_questions:
+				for question in list_of_questions:
 
-						questions = Questions.query.get(int(question))
+					questions = Questions.query.get(int(question))
 
-						questions_dict = {
-						'question': questions.question
-						}
-
-						questions_list.append(questions_dict)
-
-					session_dict = {
-						'time': session.time,
-						'guess': session.guess,
-						'found': session.found,
-						'accepted': session.accepted,
-						'questions': questions_list,
-						'answers': get_list(session.answers)
+					questions_dict = {
+					'question': questions.question
 					}
 
-					sessions_list.append(session_dict)					
+					questions_list.append(questions_dict)
 
-				return jsonify(sessions_list)
+				session_dict = {
+					'time': session.time,
+					'guess': session.guess,
+					'found': session.found,
+					'accepted': session.accepted,
+					'questions': questions_list,
+					'answers': get_list(session.answers)
+				}
 
-			else:
+				sessions_list.append(session_dict)					
 
-				return jsonify({'error': 'norecords'})
+			return jsonify(sessions_list)
 
 		else:
-			abort(403)
+
+			return jsonify({'error': 'norecords'})
+
 
 	else:
 			abort(403)
