@@ -198,15 +198,16 @@ def insert_guess():
 			guess_name = data.get('name')
 			pic = data.get('pic')
 			questions = data.get('questions')
+			hints = data.get('hints')
 
 			questions_ids = []
+
+			i = 0
 			
 			for question in questions:
 
-				split_text = question.split('&')
-
-				question_text = split_text[0]
-				question_notice = split_text[1]
+				question_text = question
+				question_notice = hints[i]
 
 
 				# Check for a question with the same name
@@ -225,6 +226,8 @@ def insert_guess():
 					get_new_question_id = Questions.query.filter_by(question=question_text).first()
 
 					questions_ids.append(str(get_new_question_id.id))
+
+				i += 1
 
 			insert_guess = Guess(guess=guess_name, questions=str(questions_ids), picture=pic)
 
@@ -339,6 +342,26 @@ def wrong_guess():
 
 			new_session = Sessions(questions=questions, answers=answers, guess=guess, found=found, accepted=accepted)
 			db.session.add(new_session)
+			db.session.commit()
+			return jsonify({
+				'message': 'done'
+				})
+
+		else:
+			abort(403)
+
+	else:
+			abort(403)
+
+# Erase sessions
+@game.route('/api/v1/erase_sessions', methods=['POST', 'GET'])
+def erase_sessions():
+
+	if request.method == 'POST':
+
+		if f"{request_source}sessions" in request.headers.get("Referer"):
+
+			erase = Sessions.query.delete()
 			db.session.commit()
 			return jsonify({
 				'message': 'done'
