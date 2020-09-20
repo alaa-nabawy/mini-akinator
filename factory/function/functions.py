@@ -51,7 +51,7 @@ def add_pic(picture_upload, location, width, height):
     ext_type = filename.split('.')[-1]
     storage_filename = str(uuid.uuid4()) + '.' + ext_type
 
-    filepath = os.path.join(current_app.root_path, 'factory/static/'+location, storage_filename)
+    filepath = os.path.join(current_app.root_path, 'static/'+location, storage_filename)
 
     output_size = (width, height)
 
