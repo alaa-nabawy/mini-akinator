@@ -115,7 +115,7 @@ def guess():
 								return jsonify({
 								'id': guess.id,
 								'guess_name': guess.guess,
-								'image': backend_source+'factory/static/guess_pic/' +guess.picture,
+								'image': backend_source+'static/guess_pic/' +guess.picture,
 								'questions': all_qustions,
 								'answers': answers_list
 								})
@@ -141,7 +141,7 @@ def guess():
 							return jsonify({
 								'id': guess.id,
 								'guess_name': guess.guess,
-								'image': backend_source+'factory/static/guess_pic/' +guess.picture,
+								'image': backend_source+'static/guess_pic/' +guess.picture,
 								'questions': all_qustions,
 								'answers': answers_list
 								})
