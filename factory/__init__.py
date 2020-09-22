@@ -20,7 +20,7 @@ db = SQLAlchemy(app)
 Migrate(app, db)
 
 # Global
-request_source = 'http://test.swiftspeedtechnology.com/'
+request_source = 'https://app.treesidentifier.org.ng/'
 backend_source = 'https://akinator-mini.herokuapp.com/'
 
 # Blueprints
